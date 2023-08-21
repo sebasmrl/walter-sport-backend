@@ -1,28 +1,36 @@
 const { Schema, model } = require('mongoose');
 
-const CategoriaSchema = Schema({
-    nombre: {
+const CategorySchema = Schema({
+    name: {
         type: String,
-        required: [true, 'El nombre es obligatorio'],
+        required: [true, 'El nombre de la categoria es obligatorio'],
         unique: true
     },
-    estado: {
+    state: {
         type: Boolean,
         default: true,
         required: true
     },
-    usuario: {
+    user: {
         type: Schema.Types.ObjectId,
-        ref: 'Usuario',
+        ref: 'User',
         required: true
+    }
+}, {
+    toJSON: {
+        transform: function (doc, record) {
+
+            const { _id, __v, ...category } = record
+            //console.log('ret: ', record)
+            category.uid = _id;
+
+            return category;
+        }
     }
 });
 
 
-CategoriaSchema.methods.toJSON = function() {
-    const { __v, estado, ...data  } = this.toObject();
-    return data;
-}
 
 
-module.exports = model( 'Categoria', CategoriaSchema );
+
+module.exports = model('Category', CategorySchema);

@@ -22,18 +22,41 @@ const ProductSchema = new Schema({
     },
     category: {
         type: Schema.Types.ObjectId,
-        ref: 'Categoria',
+        ref: 'Category',
         required: true
     },
     descripcion: { type: String },
-    available: { type: Boolean, defult: true },
-    imgs: { 
-        profile: { 
-            type: String 
-        },
-        more: {
-            type: Array
-        }
-    },
 
-},)
+    available: { 
+        type: Boolean,
+        default: true,
+        required: true 
+    },
+    profile_img: {  
+        type: String,
+        default: "" 
+    },
+    more_imgs:{
+        type: Object,
+        default: { 
+            /* 1:"",
+            2:"",
+            3:"" */
+        }
+    }
+    
+
+},{
+    toJSON: {
+        transform: function (doc, record) {
+
+            const { _id, user, __v, ...product } = record
+            console.log('ret: ', record)
+            product.uid = _id;
+
+            return product;
+        }
+    }
+});
+
+module.exports = model('Product', ProductSchema);

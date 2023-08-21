@@ -1,20 +1,24 @@
 const { Router } =  require('express');
-const { getProduct, getProducts, getProductById, addProduct, deleteProduct, modifyProduct } = require('../controllers/products');
+const {  getProducts, getProductById, addProduct, deleteProduct, modifyProduct, getProductByName } = require('../controllers/products');
+const { isAdminRole, isValidCategory, getProductDataForModify } = require('../middlewares/dbMiddewares');
+const { validateJwt } = require('../middlewares/validateJwt');
 
 const router = Router();
 
 
 
 
-router.get('/:nomCategoria', [], getProducts);
+router.get('/:nomCategory', [ isValidCategory ], getProducts);
 
-router.get('/:id', [], getProductById)
+router.get('/byId/:id', [], getProductById)
 
-router.post('/', [], addProduct);
+router.get('/', [], getProductByName)
 
-router.put('/:id', [], modifyProduct);
+router.post('/', [ validateJwt, isAdminRole, isValidCategory], addProduct);
 
-router.delete('/:id', [], deleteProduct);
+router.put('/:id', [validateJwt, isAdminRole, getProductDataForModify], modifyProduct);
+
+router.delete('/:id', [validateJwt, isAdminRole], deleteProduct);
 
 
 

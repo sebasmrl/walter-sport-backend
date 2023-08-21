@@ -16,7 +16,8 @@ class Server{
         this.paths = {
             auth: '/auth',
             users: '/users',
-            products: '/products'
+            products: '/products',
+            categories: '/categories',
         }
 
         this.dbConnection();
@@ -37,6 +38,8 @@ class Server{
     routes(){
         this.app.use( this.paths.auth, require('../routes/auth'));
         this.app.use( this.paths.users, require('../routes/users'));
+        this.app.use( this.paths.products, require('../routes/products'));
+        this.app.use( this.paths.categories, require('../routes/categories'));
     }
 
     listen(){

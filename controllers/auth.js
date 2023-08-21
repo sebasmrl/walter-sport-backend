@@ -41,8 +41,8 @@ const login = async (req = request, res = response) => {
         });
     }
 
-
-    const token = await generateJwt(user?.uid);
+    console.log("login", user._id)
+    const token = await generateJwt(user._id);
     return res.status(200).json({
         msj: 'Session Iniciada con éxito',
         data: {
@@ -84,7 +84,7 @@ const register = async (req = request, res = response) => {
 
 const restoreToken = async (req = request, res = response) => {
     //validacion  de token en middleware
-    const token = await generateJwt(req?.user);
+    const token = await generateJwt(req?.user?.uid);
     res.status(200).json({
         msj: 'Token restaurado con exito',
         data: token,
