@@ -27,9 +27,9 @@ const ProductSchema = new Schema({
     },
     descripcion: { type: String },
 
-    available: { 
-        type: Boolean,
-        default: true,
+    stock: { 
+        type: Number,
+        default: 1,
         required: true 
     },
     profile_img: {  

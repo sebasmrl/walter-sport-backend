@@ -1,10 +1,12 @@
+const { request, response } = require('express')
+const { uploadFile, fileUploadHelper, fileDeleteHelper } = require("../helpers/subir-archivo");
 const User = require("../models/user");
 
 
 const getUser = async (req, res) => {
     //Verificacion de token con valideJwt
 
-    const uid = req?.user;
+    const {uid} = req?.user;
     const user = await User.findOne({ uid: uid })
 
     // Verificar si el email existe
@@ -34,20 +36,34 @@ const getUser = async (req, res) => {
 }
 //const addUser = (req, res) =>{}
 
-const modifyUser = async (req, res) => {
+const modifyUser = async (req=request, res) => {
 
-    //viene de validateToken
-    const { uid } = req?.user;
+    //origen: middleware [validateToken]
+    const { id} = req?.user;
+
+    //#TODO subir archivo
+    let img;
+    try{
+        const  user_img  = req.files?.user_img;
+        img = await fileUploadHelper(user_img, 'users');
+        if(req?.user?.img) fileDeleteHelper(req.user.img, 'users');
+    }catch(e){
+        console.warn(e);    
+    }
+    
+    
     //const { id } = req.params;
 
     const { password, ...restoBody } = req.body;
-
+    
     if (password) {
         const salt = bcryptjs.genSaltSync(10);
         restoBody.password = bcryptjs.hashSync(password, salt);
     }
 
-    const user = await User.findByIdAndUpdate(uid, restoBody);
+    const user = (img)
+        ? await User.findByIdAndUpdate(id, {img: img.data, ...restoBody} )
+        : await User.findByIdAndUpdate(id, { ...restoBody} );
 
 
     res.status(200).json({

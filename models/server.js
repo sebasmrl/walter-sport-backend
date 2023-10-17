@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 const { dbConnection } = require('../db/connect');
 
 
@@ -18,6 +19,8 @@ class Server{
             users: '/users',
             products: '/products',
             categories: '/categories',
+            invoices: '/invoices',
+            testing: '/testing'
         }
 
         this.dbConnection();
@@ -32,14 +35,25 @@ class Server{
 
     middlewares(){
         this.app.use(cors())
+        //carga de archivos
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/',
+            createParentPath: true //crear carpetas automaticas si no existen
+        }));
+
         this.app.use(express.json())
         this.app.use(express.static('public'))
+
+        
     }
     routes(){
         this.app.use( this.paths.auth, require('../routes/auth'));
         this.app.use( this.paths.users, require('../routes/users'));
         this.app.use( this.paths.products, require('../routes/products'));
         this.app.use( this.paths.categories, require('../routes/categories'));
+        this.app.use(this.paths.invoices, require('../routes/invoices'));
+        this.app.use( this.paths.testing, require('../routes/testing'));
     }
 
     listen(){

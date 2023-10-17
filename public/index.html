@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form id="formulario">
+        <input type="text" name="name" />
+        <input type="file" name="user_img" />
+        <button id="btn" type="submit">Hacer Petición</button>
+    </form>
+
+    <script>
+        const formulario = document.getElementById("formulario");
+
+        formulario.addEventListener("submit", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            console.log(e.target.name.value);
+            console.log(e.target.user_img.value);
+
+            const name = e.target.name.value;
+            const user_img = e.target.user_img;
+
+            let fd = new FormData();
+            fd.append("user_img", user_img.files[0]);
+            fd.append("name", name);
+            fd.append("info", JSON.stringify({edad:10, nombre:" sebas"}))
+
+            fetch("http://localhost:4001/users", {
+                method: 'put',
+                headers: {
+                    'waltersport-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGQyYjRhMDY0OGFkMjEwNWE5NmU2YWMiLCJpYXQiOjE2OTcyMTczNTQsImV4cCI6MTY5NzMwMzc1NH0.uDXyf2rK68Jx_4Klmj2_F2Wq_LWBVPMSKb-9Gj8Qm2s"
+                },
+                body: fd
+            }).then( res => res.json())
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+
+        })
+        
+    </script>
+</body>
+
+</html>

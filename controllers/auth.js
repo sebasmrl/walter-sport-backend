@@ -56,8 +56,21 @@ const login = async (req = request, res = response) => {
 
 const register = async (req = request, res = response) => {
 
+
+    //#TODO subir archivo
+    let img;
+    try{
+        const  user_img  = req.files?.user_img;
+        img = await fileUploadHelper(user_img);
+    }catch(e){
+        return res.status(e.code).json(e);
+    }
+
     const { name, email, password, role } = req.body;
-    const user = new User({ name, email, password, role });
+
+    const user = (img) 
+        ? new User({ name, email, password, role, img: img.data })
+        : new User({ name, email, password, role });
 
     try {
 
