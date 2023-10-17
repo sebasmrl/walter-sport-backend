@@ -56,6 +56,34 @@ const getProductByName = async (req = request, res = response) => {
     })
 
 }
+const getProductsByName = async (req = request, res = response) => {
+    const { name: productName } = req.body;
+    const { from, to } = req.query;
+
+
+    if (!productName) return res.status(400).json({
+        msg: "Parametro [name] requerido en cuerpo de la petición",
+        data: {},
+        code: 400
+    })
+
+    const products = await Product.find({ name: productName })
+                        .skip(Number(from))
+                        .limit(Number(to));
+
+    if (products.length == 0) return res.status(400).json({
+        msg: `Productos con nombre: [${productName}] no se encuentran`,
+        data: { productName },
+        code: 400
+    })
+
+    return res.status(200).json({
+        msg: "Producto consultado con éxito",
+        data: products,
+        code: 200
+    })
+
+}
 
 
 const getProducts = async (req = request, res = response) => {
@@ -269,6 +297,7 @@ const deleteProduct = async (req = request, res = response) => {
 module.exports = {
     getProductById,
     getProductByName,
+    getProductsByName,
     getProducts,
     addProduct,
     modifyProduct,
