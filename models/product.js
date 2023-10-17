@@ -25,7 +25,7 @@ const ProductSchema = new Schema({
         ref: 'Category',
         required: true
     },
-    descripcion: { type: String },
+    description: { type: String },
 
     stock: { 
         type: Number,
