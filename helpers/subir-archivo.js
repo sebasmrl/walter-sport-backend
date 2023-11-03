@@ -49,7 +49,7 @@ const subirArchivo = (files, extensionesValidas = ['png', 'jpg', 'jpeg', 'gif'],
 
 
 
-const fileUploadHelper = async( file, folder='', validExtensions=['jpg', 'png']  ) => {
+const fileUploadHelper = async( file, folder='', validExtensions=['jpg', 'png', 'jpeg']  ) => {
     
     
     return new Promise((resolve, reject) => {

@@ -70,9 +70,11 @@ const register = async (req = request, res = response) => {
 
     const { name, email, password, role } = req.body;
 
+
     const user = (img) 
         ? new User({ name, email, password, role, img: img.data })
         : new User({ name, email, password, role });
+
 
     try {
 

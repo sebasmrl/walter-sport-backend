@@ -10,7 +10,7 @@ router.get('/:id', [], getCategoryById)
 router.get('/', [], getAllCategories)
 router.post('/',[ validateJwt, isAdminRole ], addCategory);
 router.put('/', [validateJwt, isAdminRole], modifyCategory)
-router.delete('/id', [validateJwt, isAdminRole], deleteCategory)
+router.delete('/:id', [validateJwt, isAdminRole], deleteCategory)
 
 
 

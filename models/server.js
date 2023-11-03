@@ -37,6 +37,7 @@ class Server{
         this.app.use(cors())
         this.app.use(express.json())
         this.app.use(express.static('public'))
+        
         //carga de archivos
         this.app.use(fileUpload({
             useTempFiles : true,

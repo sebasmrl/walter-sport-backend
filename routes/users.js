@@ -6,7 +6,7 @@ const { validateJwt } = require('../middlewares/validateJwt');
 const router = Router();
 
 
-router.get('/',[validateJwt], getUser); 
+router.post('/',[validateJwt], getUser); 
 //router.post('/',[], addUser);
 router.put('/',[validateJwt], modifyUser);
 router.delete('/', [validateJwt], deleteUser);
