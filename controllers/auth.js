@@ -1,7 +1,6 @@
 const { request, response } = require('express');
 const User = require('../models/user');
 const bcryptjs = require('bcryptjs');
-const { validateJwt } = require('../middlewares/validateJwt');
 const { generateJwt } = require('../helpers/generateJwt');
 
 
@@ -10,13 +9,16 @@ const login = async (req = request, res = response) => {
 
     const { email, password } = req.body;
 
+    console.log(req.body)
+    console.log("email " +email, "pass"+password)
 
     const user = await User.findOne({ email: email });
+    
     // Verificar si el email existe
     if (!user) {
         return res.status(400).json({
             msg: 'Usuario / Password no son correctos - correo',
-            data: {},
+            data: {email, password},
             code: 400
         });
     }

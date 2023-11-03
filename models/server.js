@@ -35,16 +35,14 @@ class Server{
 
     middlewares(){
         this.app.use(cors())
+        this.app.use(express.json())
+        this.app.use(express.static('public'))
         //carga de archivos
         this.app.use(fileUpload({
             useTempFiles : true,
             tempFileDir : '/tmp/',
             createParentPath: true //crear carpetas automaticas si no existen
         }));
-
-        this.app.use(express.json())
-        this.app.use(express.static('public'))
-
         
     }
     routes(){

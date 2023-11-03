@@ -12,7 +12,7 @@ router.get('/:nomCategory', [ isValidCategory ], getProducts);
 
 router.get('/byId/:id', [], getProductById)
 router.get('/unit', [], getProductByName)
-router.get('/', [], getProductsByName)  
+router.get('/', [], getProductsByName);  
 
 router.post('/', [ validateJwt, isAdminRole, isValidCategory], addProduct);
 

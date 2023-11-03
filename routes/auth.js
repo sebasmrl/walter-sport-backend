@@ -8,7 +8,7 @@ const { validateFields } = require('../middlewares/validateFields');
 const router = Router();
 
 
-router.get('/login',[], login);
+router.post('/login',[], login);
 router.post('/register', [
     check('name', 'el nombre no es valido').not().isEmpty(),
     check('mail', 'el correo no es valido').isEmail(),

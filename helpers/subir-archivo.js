@@ -51,7 +51,7 @@ const subirArchivo = (files, extensionesValidas = ['png', 'jpg', 'jpeg', 'gif'],
 
 const fileUploadHelper = async( file, folder='', validExtensions=['jpg', 'png']  ) => {
     
-
+    
     return new Promise((resolve, reject) => {
 
         if (!file ) {
@@ -72,7 +72,7 @@ const fileUploadHelper = async( file, folder='', validExtensions=['jpg', 'png'] 
 
         
         const nombreTemporaldelArchivo = uuidv4() + '.' + extension;
-        const PathdeCarga = path.join(__dirname, '../uploads/', folder, nombreTemporaldelArchivo);
+        const PathdeCarga = path.join(__dirname, '../public/uploads/', folder, nombreTemporaldelArchivo);
 
         //mover el archivo temporal a una carpeta especifica
         file.mv(PathdeCarga, (err) => {
@@ -99,7 +99,7 @@ const fileUploadHelper = async( file, folder='', validExtensions=['jpg', 'png'] 
 const fileDeleteHelper = (fileName, folder) =>{
     
     if(!fileName) return;
-    const pathImg = path.join(__dirname, '../uploads', folder, fileName);
+    const pathImg = path.join(__dirname, '../public/uploads', folder, fileName);
     if(fs.existsSync(pathImg)){
         fs.unlinkSync(pathImg);
         return true;
