@@ -2,6 +2,7 @@ const { request, response } = require('express');
 const User = require('../models/user');
 const bcryptjs = require('bcryptjs');
 const { generateJwt } = require('../helpers/generateJwt');
+const { fileUploadHelper } = require('../helpers/subir-archivo');
 
 
 
@@ -65,7 +66,7 @@ const register = async (req = request, res = response) => {
         const  user_img  = req.files?.user_img;
         img = await fileUploadHelper(user_img);
     }catch(e){
-        return res.status(e.code).json(e);
+         console.warn(`Advertencia: Imagen al registrase: ${e?.msg}`);
     }
 
     const { name, email, password, role } = req.body;
