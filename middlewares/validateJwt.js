@@ -17,6 +17,7 @@ const validateJwt = async(req= request, res=response, next) => {
         console.log("uid-validatejwt:", uid)
          // leer el usuario que corresponde al uid
          const user = await User.findById( uid );
+         console.log("Usuario en validate jwt",user)
          if( !user ) {
              return res.status(401).json({
                  msg: 'Token no válido - usuario no existe DB',

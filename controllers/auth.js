@@ -86,14 +86,14 @@ const register = async (req = request, res = response) => {
     } catch (error) {
         console.log("Error:", error)
         return res.status(400).json({
-            msj: "Error al registrar el usuario",
+            msg: "Error al registrar el usuario",
             data: error.message,
             code: 400
         });
     }
 
     return res.status(200).json({
-        msj: 'Usuario registrado con exito',
+        msg: 'Usuario registrado con exito',
         data: user,
         code: 200
     });
@@ -104,7 +104,7 @@ const restoreToken = async (req = request, res = response) => {
     //validacion  de token en middleware
     const token = await generateJwt(req?.user?.uid);
     res.status(200).json({
-        msj: 'Token restaurado con exito',
+        msg: 'Token restaurado con exito',
         data: token,
         code: 200
     });

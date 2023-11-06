@@ -92,7 +92,7 @@ const getProducts = async (req = request, res = response) => {
     const { categoryUid } = req;
     const queryOfDb = { state: true, category: categoryUid };
 
-    console.log({ queryOfDb, from, to })
+    //console.log({ queryOfDb, from, to })
 
     const [total, products] = await Promise.all([
         Product.countDocuments(queryOfDb),
@@ -206,7 +206,7 @@ const modifyProduct = async (req = request, res = response) => {
     const { name, cost, description, category, stock } = req?.body;
 
     const moreImagesPrevius = Object.assign({}, previusProduct?.more_imgs); //clonacion de objeto
-    console.log("moreImgesPrevius", moreImagesPrevius)
+    //console.log("moreImgesPrevius", moreImagesPrevius)
     
     
     //--------------------------------------------------

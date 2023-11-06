@@ -54,7 +54,7 @@ const ProductSchema = new Schema({
         transform: function (doc, record) {
 
             const { _id, user, __v, ...product } = record
-            console.log('ret: ', record)
+            //console.log('ret: ', record)
             product.uid = _id;
 
             return product;
